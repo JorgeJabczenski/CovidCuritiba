@@ -37,7 +37,7 @@ def make_tweet():
     leitos_livres     = dados[8]
     ocupacao          = dados[10]
 
-    data_vacinacao    = dados[11]
+    data_vacinacao    = dados[13]
     primeira_dose     = dados[15]
     segunda_dose      = dados[17]
 
