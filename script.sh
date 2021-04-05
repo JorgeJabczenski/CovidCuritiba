@@ -35,7 +35,7 @@ bandeira=$(cat index.html | grep "evidencia" | cut -d'"' -f4 | cut -d' ' -f2)
 
 if [ "$bandeira" = "altoRisco" ]; then
     echo "Bandeira Vermelha" >> $outFile
-elif [ "$bandeira" = "riscoModera" ]; then
+elif [ "$bandeira" = "riscoModerado" ]; then
     echo "Bandeira Laranja" >> $outFile
 else
     echo "Bandeira Amarela" >> $outFile
