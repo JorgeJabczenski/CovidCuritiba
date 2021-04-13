@@ -2,6 +2,7 @@
 from keys import *
 
 # Dependencias
+import locale
 import tweepy
 import filecmp
 from shutil import copyfile
@@ -38,28 +39,29 @@ def make_tweet():
     ocupacao          = dados[10]
 
     data_vacinacao    = dados[13]
-    primeira_dose     = dados[15]
-    segunda_dose      = dados[17]
+    primeira_dose     = int(dados[15])
+    segunda_dose      = int(dados[17])
 
     bandeira_atual    = dados[18]
      
 
     status = data_atualizacao + '\n' + \
-            "Situação Atual\n" + bandeira_atual     + '\n' + \
-            "Casos ativos\n"   + casos_ativos       + '\n' + \
-            "Confirmados\n"   + casos_confirmados   + '\n' + \
-            "Óbitos\n"         + obitos             + '\n' + \
-            "Ocupação UTI\n"   + ocupacao           + '\n' + \
-            "Leitos Livres\n"  + leitos_livres      + '\n' + \
-            "\nVACINACAO"                           + '\n' + \
-            data_vacinacao                          + '\n' + \
-            "Primeira Dose\n"  + primeira_dose      + '\n' + \
-            "Segunda Dose\n"   + segunda_dose 
+            "Situação Atual\n" + bandeira_atual               + '\n' + \
+            "Casos ativos\n"   + casos_ativos                 + '\n' + \
+            "Confirmados\n"   + casos_confirmados             + '\n' + \
+            "Óbitos\n"         + obitos                       + '\n' + \
+            "Ocupação UTI\n"   + ocupacao                     + '\n' + \
+            "Leitos Livres\n"  + leitos_livres                + '\n' + \
+            "\nVACINACAO"                                     + '\n' + \
+            data_vacinacao                                    + '\n' + \
+            "Primeira Dose\n"  + '{:n}'.format(primeira_dose) + '\n' + \
+            "Segunda Dose\n"   + '{:n}'.format(segunda_dose)
     
 
     status_file = open("status/current_status", "w+")
     status_file.write(status)
     status_file.close()
+    print(status)
 
     if(filecmp.cmp("status/current_status", "status/old_status", shallow=True)):
         print("Sem Atualizações")
@@ -76,5 +78,6 @@ def make_tweet():
 # -----------------------------------------------------------------------------------
 # MAIN
 
+locale.setlocale(locale.LC_ALL,'')
 configure_authorization_keys()
 make_tweet()
